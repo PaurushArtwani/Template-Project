@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Responsive Sidebar Menu  | CodingLab </title>
+     <link rel="stylesheet" href="Practise.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous">
+    </script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif;
+}
+.sidebar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 78px;
+  background: #11101D;
+  padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+.sidebar.open{
+  width: 250px;
+}
+.sidebar .logo-details{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.sidebar .logo-details .icon{
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.sidebar .logo-details .logo_name{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  opacity: 1;
+}
+.sidebar .logo-details #btn{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.sidebar.open .logo-details #btn{
+  text-align: right;
+}
+.sidebar i{
+  color: #fff;
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+}
+.sidebar .nav-list{
+  margin-top: 20px;
+  height: 100%;
+}
+.sidebar li{
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+}
+.sidebar li .tooltip{
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip{
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sidebar.open li .tooltip{
+  display: none;
+}
+.sidebar input{
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #1d1b31;
+}
+.sidebar.open input{
+  padding: 0 20px 0 50px;
+  width: 100%;
+}
+.sidebar .bx-search{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  background: #1d1b31;
+  color: #FFF;
+}
+.sidebar.open .bx-search:hover{
+  background: #1d1b31;
+  color: #FFF;
+}
+.sidebar .bx-search:hover{
+  background: #FFF;
+  color: #11101d;
+}
+.sidebar li a{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #11101D;
+}
+.sidebar li a:hover{
+  background: #FFF;
+}
+.sidebar li a .links_name{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+.sidebar.open li a .links_name{
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i{
+  transition: all 0.5s ease;
+  color: #11101D;
+}
+.sidebar li i{
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+.sidebar li.profile{
+  position: fixed;
+  height: 60px;
+  width: 78px;
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.sidebar.open li.profile{
+  width: 250px;
+}
+.sidebar li .profile-details{
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.sidebar li img{
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.sidebar li.profile .name,
+.sidebar li.profile .job{
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+.sidebar li.profile .job{
+  font-size: 12px;
+}
+.sidebar .profile #log_out{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #1d1b31;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 0px;
+  transition: all 0.5s ease;
+}
+.sidebar.open .profile #log_out{
+  width: 50px;
+  background: none;
+}
+.home-section{
+  position: relative;
+  background: #E4E9F7;
+  min-height: 100vh;
+  top: 0;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.sidebar.open ~ .home-section{
+  left: 250px;
+  width: calc(100% - 250px);
+}
+.home-section .text{
+  display: inline-block;
+  color: #11101d;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px
+}
+@media (max-width: 420px) {
+  .sidebar li .tooltip{
+    display: none;
+  }
+}
+
+
+.teams-section{
+    /* padding-top: 60px; */
+    /* padding-bottom: 200px; */
+    background: linear-gradient(to bottom, #bcf2fd 0, #f5fcfe 100%);
+   
+    text-align: center;
+    /* padding: 20px; */
+    padding-bottom: 50px;
+    /* height: 80vh; */
+}
+.Schedulers-section
+{
+    text-align: center;
+    background: linear-gradient(to bottom, #bcf2fd 0, #f5fcfe 100%);
+    padding: 20px;
+
+    height: 100vh;
+}
+.team-card  svg{
+    height: 30px;
+}
+.team-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+.team-card i {
+    font-size: 40px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+.team-card h2 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #003366;
+}
+.event-content {
+    opacity: 0;
+    visibility: hidden;
+    position: relative;
+    width: 100%;
+    background: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    transition: top 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+    text-align: left;
+    max-height: 0;
+    overflow: hidden;
+}
+.team-card:hover .event-content {
+    opacity: 1;
+    visibility: visible;
+    max-height: 200px;
+}
+.event-content a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 0;
+}
+.event-content a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 768px) {
+    .team-card {
+        margin-bottom: 15px;
+    }
+}
+/* Footer Styles */
+footer {
+    background-color: #333; /* Dark background color */
+    color: #eee; /* Light text color */
+    padding: 40px 0; /* Increased padding */
+    font-size: 0.9em; /* Slightly smaller font size */
+}
+
+.footer-content {
+    max-width: 960px; /* Set maximum width */
+    margin: 0 auto; /* Center the content */
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: center;
+    padding: 0 20px; /* Side padding */
+}
+
+.footer-logo img {
+    max-height: 40px; /* Adjust logo height */
+    filter: brightness(0) invert(1); /* Invert logo color for dark background*/
+}
+
+.footer-info {
+    text-align: center;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0; /* Space between copyright and links */
+    display: flex;
+    justify-content: center; /* Center the links */
+}
+
+.footer-links li {
+    margin: 0 15px; /* Space between links */
+}
+
+.footer-links a {
+    color: #eee;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-social {
+    display: flex;
+}
+
+.footer-social a {
+    margin-left: 10px;
+}
+
+.footer-social img {
+    height: 25px; /* Adjust icon size */
+    width: 25px;
+    filter: brightness(0) invert(1); /* Invert icon colors */
+    transition: opacity 0.3s ease;
+}
+
+.footer-social img:hover {
+    opacity: 0.7;
+}
+
+/* Responsive adjustments (example) */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column; /* Stack links vertically */
+    }
+
+    .footer-links li {
+        margin: 5px 0; /* Space between stacked links */
+    }
+
+    .footer-social {
+        margin-top: 20px; /* Add space above social icons */
+        justify-content: center; /* Center social icons */
+    }
+}
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+* {
+    transition: all 0.3s ease-out;
+}
+
+html, body {
+    height: 100%;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+}
+
+.container {
+    /* display: flex; */
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.team-card {
+    position: relative;
+    max-width: 262px;
+    min-height:180px ;
+    background-color: #f2f8f9;
+    border-radius: 4px;
+    padding: 32px 24px;
+    margin: 12px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.team-card i {
+    font-size: 40px;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.team-card h2 {
+    font-size: 18px;
+    color: #003366;
+}
+.team-card h3 {
+    font-size: 16px;
+    color: rgb(0 131 141);
+}
+
+.hover-content {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 131 141);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.hover-content a{
+color: white;
+text-decoration: none;
+}
+.team-card:hover .hover-content {
+    top: 0;
+    opacity: 1;
+}
+
+footer {
+    background-color: #333;
+    color: #eee;
+    padding: 40px 0;
+    font-size: 0.9em;
+}
+
+.footer-content {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.footer-logo img {
+    max-height: 40px;
+    filter: brightness(0) invert(1);
+}
+
+.footer-info {
+    text-align: center;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-links li {
+    margin: 0 15px;
+}
+
+.footer-links a {
+    color: #eee;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-social {
+    display: flex;
+}
+
+.footer-social a {
+    margin-left: 10px;
+}
+
+.footer-social i {
+    color: #eee;
+    font-size: 25px;
+    transition: opacity 0.3s ease;
+}
+
+.footer-social i:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+    }
+
+    .footer-links li {
+        margin: 5px 0;
+    }
+
+    .footer-social {
+        margin-top: 20px;
+        justify-content: center;
+    }
+}
+.footer-content svg{
+    color: white!important;
+    font-size: 20px;
+}
+.nav-list{
+    padding-left: 0px!important;
+}
+   </style>
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+     
+        
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+    
+        <li>
+          <a href="#">
+            <i class='bx bx-group'></i>
+            <span class="links_name">Teams</span>
+          </a>
+           <span class="tooltip">Teams</span>
+        </li>
+        <li>
+         <a href="#">
+           <i class='bx bx-calendar'></i>
+           <span class="links_name">Schedulers</span>
+         </a>
+         <span class="tooltip">Schedulers</span>
+       </li>
+       <li>
+         <a href="#">
+           <i class='bx bx-bar-chart-alt'></i>
+           <span class="links_name">Analytics</span>
+         </a>
+         <span class="tooltip">Analytics</span>
+       </li>
+       <li>
+         <a href="#">
+           <i class='bx bx-calculator'></i>
+           <span class="links_name">Accounting</span>
+         </a>
+         <span class="tooltip">Accounting</span>
+       </li>
+       <li>
+         <a href="#">
+           <i class='bx bx-briefcase'></i>
+           <span class="links_name">Entity</span>
+         </a>
+         <span class="tooltip">Entity</span>
+       </li>
+      
+  
+  </ul>
+  
+  </div>
+  <section class="home-section">
+    <div class="Main-container"> 
+        <!-- Teams Section -->
+        <div class="teams-section">
+            <div class="container">
+                <h1 class="my-4">Teams</h1>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <h2>Bill Approval</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Team Approvals - Bills</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <h2>Events</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Team Approvals - Event Status New</a>
+                                <a href="#">Grid Calendar View</a>
+                                <a href="#">Event Report Maker New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-invoice"></i>
+                            <h2>Accounts Payable</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Team Status AP</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-search"></i>
+                            <h2>Find Bill</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Find Bill</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="teams-section">
+            <div class="container">
+                <h1 class="my-4">Schedulers</h1>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h2>Job Descriptions</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Area/Stages</a>
+                                <a href="#">Area/Stages New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-user-check"></i>
+                            <h2>Onboarding</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Human Resources</a>
+                                <a href="#">Human Resources New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-signature"></i>
+                            <h2>Offers & Contracting</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Scheduler New</a>
+                                <a href="#">Template New</a>
+                                <a href="#">Schedulers Schedule New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-tasks"></i>
+                            <h2>Job Assignments</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Add Stage/Area</a>
+                                <a href="#">Add Stage/Area New</a>
+                                <a href="#">Edit Stage/Area</a>
+                                <a href="#">Edit Stage/Area New</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h2>Affiliate Public Schedules</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Southland Casino Hotel</a>
+                                <a href="#">Hard Rock Hotel & Casino Tulsa</a>
+                                <a href="#">Cherokee Casino & Hotel Gold Strike</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-dollar-sign"></i>
+                            <h2>Payroll, Reimbursements & Splits</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Report - Bi-Weekly Payroll New</a>
+                                <a href="#">Hard Rock Hotel & Casino Tulsa</a>
+                                <a href="#">New Yearly New Manage Reimbursements & Splits</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-link"></i>
+                            <h2>Public Schedules, Link-maker, ICS</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Public Schedules, Link-maker, ICS</a>
+                                <a href="#">Public Schedules, Link-maker, ICS New</a>
+                            </div>
+                        </div>
+                    </div>  
+        
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-envelope"></i>
+                            <h2>Messages</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Messages</a>
+                                <a href="#">Messages New</a>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="teams-section">
+            <div class="container">
+                <h1 class="my-4">Analytics</h1>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <h2>P&L Analytics</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">P&L Analytics</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <h2>Business Health</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Business Health</a>
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-invoice"></i>
+                            <h2>Chart Of Accounts & Reports</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Chart Of Accounts</a>
+                                <a href="#">Chart Of Accounts New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-search"></i>
+                            <h2>Bills Paid Un-paid & Report</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Bills Paid Un-paid</a>
+                                <a href="#">Bills Paid Un-paid New
+                                    Accounts Payable</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <!-- Accounting Section -->
+        <div class="teams-section">
+            <div class="container">
+                <h1 class="my-4">Accounting</h1>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-user-plus"></i>
+                            <h2>Add Client & Create Billing Setup</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Add Client & Create Billing Setup</a>
+                                <a href="#">Add Client & Create Billing Setup New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <h2>Create Bill & Approvals</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Create Bill & Approvals</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-money-check-alt"></i>
+                            <h2>Accounts Payable</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Manage Bills</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h2>Create Statements</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Create Statements</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-coins"></i>
+                            <h2>Bi Weekly Payroll</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Bi Weekly Payroll</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-percentage"></i>
+                            <h2>Apply Payroll Taxes</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Apply Payroll Taxes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-receipt"></i>
+                            <h2>Check Stubs</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Check Stubs</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <h2>Yearly 1099 / W-2</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Yearly 1099 / W-2</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-university"></i>
+                            <h2>Load Bank Records</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Load Bank Records</a>
+                                <a href="#">Load Bank Records New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-folder-open"></i>
+                            <h2>Assign Bank Record Categories</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Assign Bank Record Categories</a>
+                                <a href="#">Budget Summary Report</a>
+                                <a href="#">Budget Summary Report New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-credit-card"></i>
+                            <h2>Manage Credit Cards & Reimbursements</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Manage Credit Cards</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-invoice"></i>
+                            <h2>Billing & Team Approvals</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Billing</a>
+                                <a href="#">Team Approvals - Bills</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="teams-section">
+            <div class="container">
+                <h1 class="my-4">Entity</h1>
+                <div class="row g-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-user-tie"></i>
+                            <h2>Onboarding</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Onboarding</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-check-circle"></i>
+                            <h2>Avails</h2>
+                            <h3>Yes-23</h3>
+                            <h3>No-2,283</h3>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Avails</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-file-signature"></i>
+                            <h2>Offers, Contracting, Confirmations</h2>
+                            <h3>Offers-16</h3>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Offers, Contracting, Confirmations</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-briefcase"></i>
+                            <h2>Job Assignments</h2>
+                            <h3>Assignments-7</h3>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Job Assignments</a>
+                                <a href="#">Job Assignments New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-list-ul"></i>
+                            <h2>Task List</h2>
+                            <h3>Songs-124 Jobs-0</h3>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Song List Manager</a>
+                                <a href="#">Job List Manager</a>
+                                <a href="#">Songs & Jobs</a>
+                                <a href="#">Songs & Jobs New</a>
+                                <a href="#">Schedule Song Or Job List New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h2>Public Schedules & ICS Calendar Links</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Public Schedules & ICS</a>
+                                <a href="#">Calendar Links & Link-Maker Link</a>
+                                <a href="#">Public Schedules & ICS</a>
+                                <a href="#">Calendar Links & Link-Maker Link New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-money-check-alt"></i>
+                            <h2>Payroll & Reimbursements</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Check Stubs</a>
+                                <a href="#">Bi Weekly New</a>
+                                <a href="#">Pay summary yearly</a>
+                                <a href="#">Pay summary yearly New</a>
+                                <a href="#">Manage Credit Card</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h2>Learning Center</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Learning Center</a>
+                                <a href="#">Learning Center New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-university"></i>
+                            <h2>Load Bank Records</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Load Bank Records</a>
+                                <a href="#">Load Bank Records New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="team-card">
+                            <i class="fas fa-folder-open"></i>
+                            <h2>Assign Bank Record Categories</h2>
+                            <div class="hover-content">
+                                <h4></h4>
+                                <a href="#">Assign Bank Record Categories</a>
+                                <a href="#">Budget Summary Report</a>
+                                <a href="#">Budget Summary Report New</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+  </section>
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+</body>
+</html>
